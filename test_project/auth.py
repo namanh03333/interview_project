@@ -1,6 +1,6 @@
-from flask import Blueprint,render_template,redirect,url_for,request,flash,session
-from test_project.form import Login,Signup,Forget_PassWord
-from werkzeug.security import generate_password_hash,check_password_hash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
+from test_project.form import Login, Signup, Forget_PassWord
+from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from flask_login import (
     login_user,
@@ -11,9 +11,10 @@ from flask_login import (
 )
 from . import db
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint("auth", __name__)
 
-@auth.route("/",methods =['GET','POST'])
+
+@auth.route("/", methods=["GET", "POST"])
 def login():
     form = Login()
     if form.validate_on_submit():
@@ -27,15 +28,16 @@ def login():
                 session["user_name"] = user.user_name
                 flash("Login Successfull", category="success")
                 login_user(user, remember=True)
-                return redirect(url_for('main.home'))
+                return redirect(url_for("main.home"))
             else:
                 flash("Incorrect password, please try again", category="error")
 
         if user is None:
             flash("User does not exist", category="error")
-    return render_template("dangnhap.html",form=form,user=current_user)
+    return render_template("dangnhap.html", form=form, user=current_user)
 
-@auth.route("/dangki",methods=['GET','POST'])
+
+@auth.route("/dangki", methods=["GET", "POST"])
 def signup():
     form = Signup()
 
@@ -54,17 +56,17 @@ def signup():
         else:
             if new_user_password == confirmed_pass:
                 new_user = User(
-                email=new_user_email,
-                user_name=new_user_name,
-                password=generate_password_hash(new_user_password),
-              )
+                    email=new_user_email,
+                    user_name=new_user_name,
+                    password=generate_password_hash(new_user_password),
+                )
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Account created !!!", category="success")
-                return redirect(url_for('auth.dang_nhap'))
+                return redirect(url_for("auth.dang_nhap"))
 
+    return render_template("dangki.html", form=form, user=current_user)
 
-    return render_template("dangki.html",form=form,user=current_user)
 
 @auth.route("/quenMK")
 def forget_password():
@@ -72,21 +74,22 @@ def forget_password():
     if form.validate_on_submit():
         user_name = form.user_name.data
         user_email = form.user_email.data
-        new_password = form.new_user_password.data 
+        new_password = form.new_user_password.data
         confirmed_password = form.confirmed_password.data
-        if(new_password == confirmed_password):
+        if new_password == confirmed_password:
             user = User.query.filter_by(user_name=user_name, email=user_email).first()
             if user:
                 user.password = generate_password_hash(new_password)
                 db.session.commit()
-                flash('Reset PassWord Successful!!', 'success')
-                return redirect(url_for('main.login'))  
+                flash("Reset PassWord Successful!!", "success")
+                return redirect(url_for("main.login"))
             else:
-                flash('Error', 'danger')
+                flash("Error", "danger")
     else:
-            flash('Password does not match', 'warning')
+        flash("Password does not match", "warning")
 
-    return render_template("quenMK.html",form=form,user=current_user)
+    return render_template("quenMK.html", form=form, user=current_user)
+
 
 @auth.route("/logout", methods=["POST", "GET"])
 def logout():
