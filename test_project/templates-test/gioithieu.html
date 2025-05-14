@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+
+<div class="container-fluid p-0">
+  <img src="{{ url_for('static', filename='images/bannerGT.png') }}" class="img-fluid w-100" alt="Banner chính">
+</div>
+
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-2 text-center">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo VPS" class="img-fluid mb-3" style="max-height: 100px;">
+    </div>
+    <div class="col-md-6">
+      <p><strong>VPS_Fashion</strong> 2 năm - Khoác lên niềm vui gia đình Việt Nam 2021, Công ty Cổ phần Thương mại và Dịch vụ Hoàng Dương được thành lập với mục đích ban đầu là hoạt động trong lĩnh vực sản xuất thời trang xuất khẩu với các sản phẩm chủ yếu làm từ len và sợi. Năm 2022  thương hiệu thời trang VPS-Fashion ra đời, tự hào trở thanhfmootj cột mốc ddanngs nhớ của doanh nghiệp Việt Nam trong ngành thời trang </p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="{{ url_for('static', filename='images/family.png') }}" alt="Gia đình" class="img-fluid rounded">
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col">
+      <p class="font-weight-bold" style="font-size: 1.2rem;">
+        <strong>VPS-Fashion</strong> hướng đến mục tiêu mang lại niềm vui mặc mới mỗi ngày cho hàng triệu người tiêu dùng Việt.
+        Chúng tôi tin rằng người dân Việt Nam cũng đang hướng đến một cuộc sống năng động, tích cực hơn.
+      </p>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3">
+    <a href="#" class="btn btn-dark px-4">XEM THÊM</a>
+  </div>
+</div>
+    <footer class="bg-dark text-white mt-5">
+        <div class="container-fluid p-0">
+            <img src="{{ url_for('static', filename='images/footer.png') }}" alt="Footer" class="img-fluid w-100">
+        </div>
+    </footer>
+
+{% endblock %}

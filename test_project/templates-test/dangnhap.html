@@ -1,4 +1,4 @@
-{%extends 'base.html'%}
+{% extends 'base.html'%}
 {% block content %}
 {% from 'bootstrap4/form.html' import render_form %}
 
@@ -17,9 +17,15 @@
     </div>
 
     <div align="center">
-        <a href="{{url_for('auth.quen_mk')}}">Quên mật khẩu</a><br />
-        <a href="{{url_for('auth.dang_ki')}}">Tạo tài khoản</a><br />
+        <a href="{{url_for('auth.forget_password')}}">Quên mật khẩu</a><br />
+        <a href="{{url_for('auth.signup')}}">Tạo tài khoản</a><br />
     </div>
+
+    <footer class="bg-dark text-white mt-5">
+        <div class="container-fluid p-0">
+            <img src="{{ url_for('static', filename='images/footer.png') }}" alt="Footer" class="img-fluid w-100">
+        </div>
+    </footer>
 
 
 </body>

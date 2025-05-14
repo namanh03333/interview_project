@@ -13,21 +13,21 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
-@auth.route("/dangnhap",methods =['GET','POST'])
-def dang_nhap():
+@auth.route("/",methods =['GET','POST'])
+def login():
     form = Login()
     if form.validate_on_submit():
-        email = form.user_email.data
+        user_name = form.user_name.data
         password = form.user_password.data
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(user_name=user_name).first()
 
         if user:
             if check_password_hash(user.password, password):
                 session["user_name"] = user.user_name
                 flash("Login Successfull", category="success")
                 login_user(user, remember=True)
-                return redirect(url_for("home"))
+                return redirect(url_for('main.home'))
             else:
                 flash("Incorrect password, please try again", category="error")
 
@@ -36,7 +36,7 @@ def dang_nhap():
     return render_template("dangnhap.html",form=form,user=current_user)
 
 @auth.route("/dangki",methods=['GET','POST'])
-def dang_ki():
+def signup():
     form = Signup()
 
     if form.validate_on_submit():
@@ -61,15 +61,37 @@ def dang_ki():
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Account created !!!", category="success")
-                return redirect(url_for('auth.dangnhap'))
+                return redirect(url_for('auth.dang_nhap'))
 
 
     return render_template("dangki.html",form=form,user=current_user)
 
 @auth.route("/quenMK")
-def quen_mk():
+def forget_password():
     form = Forget_PassWord()
+    if form.validate_on_submit():
+        user_name = form.user_name.data
+        user_email = form.user_email.data
+        new_password = form.new_user_password.data 
+        confirmed_password = form.confirmed_password.data
+        if(new_password == confirmed_password):
+            user = User.query.filter_by(user_name=user_name, email=user_email).first()
+            if user:
+                user.password = generate_password_hash(new_password)
+                db.session.commit()
+                flash('Reset PassWord Successful!!', 'success')
+                return redirect(url_for('main.login'))  
+            else:
+                flash('Error', 'danger')
+    else:
+            flash('Password does not match', 'warning')
 
-    return render_template("forgetPass.html",form=form,user=current_user)
+    return render_template("quenMK.html",form=form,user=current_user)
 
+@auth.route("/logout", methods=["POST", "GET"])
+def logout():
+    if request.method == "POST":
+        logout_user()
+        return redirect(url_for("auth.login"))
 
+    return render_template("trangchu.html", user=current_user)

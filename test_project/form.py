@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, SelectField, TextAreaField, Passwo
 from wtforms.validators import DataRequired, Length
 
 class Login(FlaskForm):
-    user_email = StringField("",validators=[DataRequired()],render_kw={"placeholder": "Tên Tài Khoản"})
+    user_name = StringField("",validators=[DataRequired()],render_kw={"placeholder": "Tên Tài Khoản"})
     user_password = PasswordField("",validators=[DataRequired()],render_kw={"placeholder": "Mật Khẩu"})
     submit = SubmitField("Đăng Nhập Ngay")
 

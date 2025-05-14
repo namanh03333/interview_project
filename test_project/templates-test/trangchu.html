@@ -1,16 +1,36 @@
-{%extends 'base.html'%}
-{%block content%}
+{% extends 'base.html' %}
+
+{% block content %}
   {% block page_header %}
-  <div class="container">
-    <div class="jumbotron">
-      <h1 class="display-3"></h1>
 
-      <p class="lead"></p>
-
-      <a class="btn btn-lg btn-primary" href="{{url_for('auth.dang_ki')}}"
-          role="button">Register &raquo;</a>
-    </div>
+  <div class="container-fluid px-0">
+    <img src="{{ url_for('static', filename='images/banner.png') }}" alt="Banner" class="img-fluid w-100">
   </div>
   {% endblock page_header %}
-  <br/><br/>
-{%endblock content%}
+
+  <div class="container">
+    <h2 class="mt-4">Danh Mục Sản Phẩm</h2>
+
+    {% for category in categories %}
+      <h3 class="mt-5">{{ category.name }}</h3>
+      <div class="row">
+        {% for product in category.products %}
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card h-100">
+            <img src="{{ url_for('static', filename=product.img_url) }}" class="card-img-top" alt="{{ product.name }}">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text text-danger">{{ "{:,.0f}".format(product.price) }}₫</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-outline-secondary">Xem Thêm</a>
+    </div>
+  </div>
+
+{% endblock content %}
