@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{% block content %}
+{% from 'bootstrap4/form.html' import render_form %}
+
+
+
+<body>
+    <div class="container">
+        <div align="center">
+            <h1>Lấy Lại Mật Khẩu</h1>
+        </div>
+
+        <br /><br />
+        {{ render_form(form) }}
+    </div>
+    
+   
+
+</body>
+{% endblock %}

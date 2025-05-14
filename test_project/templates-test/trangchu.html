@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+{%block content%}
+  {% block page_header %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-3"></h1>
+
+      <p class="lead"></p>
+
+      <a class="btn btn-lg btn-primary" href="{{url_for('auth.dang_ki')}}"
+          role="button">Register &raquo;</a>
+    </div>
+  </div>
+  {% endblock page_header %}
+  <br/><br/>
+{%endblock content%}

@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% block content %}
+{% from 'bootstrap4/form.html' import render_form %}
+
+
+
+<body>
+    <div class="container">
+
+        <div align="center">
+            <h1>Đăng Nhập</h1>
+        </div>
+
+
+        <br /><br />
+        {{ render_form(form) }}
+    </div>
+
+    <div align="center">
+        <a href="{{url_for('auth.quen_mk')}}">Quên mật khẩu</a><br />
+        <a href="{{url_for('auth.dang_ki')}}">Tạo tài khoản</a><br />
+    </div>
+
+
+</body>
+{% endblock %}
