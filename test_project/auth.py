@@ -63,12 +63,12 @@ def signup():
                 db.session.add(new_user)
                 db.session.commit()
                 flash("Account created !!!", category="success")
-                return redirect(url_for("auth.dang_nhap"))
+                return redirect(url_for("auth.login"))
 
     return render_template("dangki.html", form=form, user=current_user)
 
 
-@auth.route("/quenMK")
+@auth.route("/quenMK",methods=['GET','POST'])
 def forget_password():
     form = Forget_PassWord()
     if form.validate_on_submit():
