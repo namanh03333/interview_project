@@ -82,7 +82,7 @@ def forget_password():
                 user.password = generate_password_hash(new_password)
                 db.session.commit()
                 flash("Reset PassWord Successful!!", "success")
-                return redirect(url_for("main.login"))
+                return redirect(url_for("auth.login"))
             else:
                 flash("Error", "danger")
     else:
